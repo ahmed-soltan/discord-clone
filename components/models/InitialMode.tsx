@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useForm } from "react-hook-form";
-import * as z from "Zod";
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
