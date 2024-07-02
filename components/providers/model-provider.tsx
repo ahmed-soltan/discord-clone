@@ -6,6 +6,7 @@ import InviteServerModel from "../models/invite-server-model";
 import EditServerModel from "../models/edit-server-model";
 import ManageMembersModel from "../models/manage-members-model";
 import CreateChannelModel from "../models/create-channel-model";
+import LeaverServerModel from "../models/leave-server-model";
 
 const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
@@ -24,6 +25,7 @@ const ModalProvider = () => {
       <EditServerModel/>
       <ManageMembersModel/>
       <CreateChannelModel/>
+      <LeaverServerModel/>
     </>
   );
 };
