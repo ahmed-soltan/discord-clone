@@ -37,13 +37,6 @@ const EditServerModel = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "editServer";
-  if(!isModalOpen){
-    return null
-  }
-  const {server} = data
-
-  
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -51,6 +44,13 @@ const EditServerModel = () => {
       imageUrl: "",
     },
   });
+  const isModalOpen = isOpen && type === "editServer";
+  if(!isModalOpen){
+    return null
+  }
+  const {server} = data
+
+  
   useEffect(()=>{
     if(server){
       form.setValue("name", server.name);
