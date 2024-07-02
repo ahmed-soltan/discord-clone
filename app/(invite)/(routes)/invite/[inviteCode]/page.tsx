@@ -2,7 +2,7 @@ import { currentProfile } from "@/lib/current-profile";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import {prisma} from '@/lib/prismadb'
-import { Server } from "@prisma/client";
+
 interface InviteCodePageProps {
   params: {
     inviteCode: string;
