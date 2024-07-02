@@ -44,19 +44,17 @@ const EditServerModel = () => {
       imageUrl: "",
     },
   });
-  const isModalOpen = isOpen && type === "editServer";
-  if(!isModalOpen){
-    return null
-  }
-  const {server} = data
 
-  
-  useEffect(()=>{
-    if(server){
+  const isModalOpen = isOpen && type === "editServer";
+
+  const { server } = data || {};
+
+  useEffect(() => {
+    if (server) {
       form.setValue("name", server.name);
       form.setValue("imageUrl", server.imageUrl);
     }
-  },[server,form])
+  }, [server, form]);
 
   const isLoading = form.formState.isSubmitting;
 
@@ -65,7 +63,7 @@ const EditServerModel = () => {
       await axios.patch(`/api/servers/${server?.id}`, data);
       router.refresh();
       onClose();
-      form.reset()
+      form.reset();
     } catch (error) {
       console.log(error);
     }
@@ -76,15 +74,19 @@ const EditServerModel = () => {
     onClose();
   };
 
+  if (!isModalOpen) {
+    return null;
+  }
+
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Create Your Server
+            Edit Your Server
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500 ">
-            Give your server a personality with a name and an image. you can
+            Give your server a personality with a name and an image. You can
             always change it later.
           </DialogDescription>
         </DialogHeader>
@@ -126,7 +128,7 @@ const EditServerModel = () => {
                         type="text"
                         placeholder="Enter Server Name"
                         disabled={isLoading}
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offest-0"
+                        className="bg-zinc-300/50 border-0 focus-visible:ring-0 text-black focus-visible:ring-offset-0"
                       />
                     </FormControl>
                     <FormMessage />
