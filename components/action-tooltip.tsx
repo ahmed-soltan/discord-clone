@@ -4,7 +4,7 @@ interface ActionTooltipProps {
   label: string;
   children: React.ReactNode;
   side?: "top" | "bottom" | "left" | "right";
-  align: "start" | "center" | "end";
+  align?: "start" | "center" | "end";
 }
 import {
   Tooltip,

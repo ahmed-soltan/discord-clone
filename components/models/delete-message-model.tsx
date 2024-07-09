@@ -13,25 +13,29 @@ import { Button } from "../ui/button";
 import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
+import qs from "query-string";
 
-const LeaveServerModel = () => {
+const DeleteMessageModel = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter()
+  const router = useRouter();
   const { onOpen, isOpen, onClose, type, data } = useModal();
-  
-  const isModalOpen = isOpen && type === "leaveServer";
+
+  const isModalOpen = isOpen && type === "deleteMessage";
   if (!isModalOpen) {
     return null;
   }
-  const { server } = data;
+  const { apiUrl , query } = data;
 
   const handleLeaveServer = async () => {
     setIsLoading(true);
     try {
-      await axios.patch(`/api/servers/${server?.id}/leave`);
+      const url = qs.stringifyUrl({
+        url: apiUrl || "",
+        query: query
+      });
+      await axios.delete(url);
       onClose();
       router.refresh();
-      router.push("/");
     } catch (error) {
       console.error(error);
     } finally {
@@ -44,14 +48,11 @@ const LeaveServerModel = () => {
       <DialogContent className="bg-white text-black p-0 overflow-hidden">
         <DialogHeader className="pt-8 px-6">
           <DialogTitle className="text-2xl text-center font-bold">
-            Leave Server
+            Delete Message
           </DialogTitle>
           <DialogDescription className="text-center text-zinc-500">
-            Are you sure you want to leave{" "}
-            <span className="text-semibold text-indigo-500">
-              {server?.name}
-            </span>
-            ? This action cannot be undone.
+            Are you sure you want to Delete this Message? <br /> <span className="font-bold">This action
+            cannot be undone.</span>
           </DialogDescription>
         </DialogHeader>
 
@@ -74,4 +75,4 @@ const LeaveServerModel = () => {
   );
 };
 
-export default LeaveServerModel;
+export default DeleteMessageModel;
