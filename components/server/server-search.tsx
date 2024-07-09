@@ -35,11 +35,11 @@ const ServerSearch = ({ data }: ServerSearchProps) => {
   const onClick = (id: string, type: string) => {
     setOpen(false);
     if (type === "member") {
-      return router.push(`/server/${params.serverId}/conversations/${id}`);
+      return router.push(`/server/${params?.serverId}/conversations/${id}`);
     }
 
     if (type === "channel") {
-      return router.push(`/server/${params.serverId}/channels/${id}`);
+      return router.push(`/server/${params?.serverId}/channels/${id}`);
     }
   };
 

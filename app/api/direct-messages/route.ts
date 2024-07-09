@@ -10,7 +10,7 @@ export const GET = async (req: Request) => {
     const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
     const cursor = searchParams.get("cursor");
-    const conversationId = searchParams.get("conversationId");
+    const conversationId = searchParams?.get("conversationId");
 
     if (!profile) {
       return new NextResponse("unAuthorized", { status: 401 });

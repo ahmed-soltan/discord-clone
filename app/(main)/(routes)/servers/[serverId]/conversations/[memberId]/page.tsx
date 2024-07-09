@@ -25,7 +25,7 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
 
   const currentMember = await prisma.member.findFirst({
     where: {
-      serverId: params.serverId,
+      serverId: params?.serverId,
       profileId: profile.id,
     },
     include: {
@@ -39,11 +39,11 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
 
   const conversation = await getOrCreateConversation(
     currentMember.id,
-    params.memberId
+    params?.memberId
   );
 
   if (!conversation) {
-    return redirect(`/servers/${params.serverId}`);
+    return redirect(`/servers/${params?.serverId}`);
   }
 
   const { memberOne, memberTwo } = conversation;
@@ -54,14 +54,14 @@ const MemberPage = async ({ params, searchParams }: MemberPageProps) => {
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
       <ChatHeader
         name={otherMember.profile.name}
-        serverId={params.serverId}
+        serverId={params?.serverId}
         type={"conversation"}
         imageUrl={otherMember.profile.imageUrl}
       />
-      {searchParams.video && (
+      {searchParams?.video && (
         <MediaChatRoom chatId={conversation.id} audio={true} video={true} />
       )}
-      {!searchParams.video && (
+      {!searchParams?.video && (
         <>
           <ChatMessages
             member={currentMember}

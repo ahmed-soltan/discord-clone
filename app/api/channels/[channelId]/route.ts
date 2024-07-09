@@ -10,13 +10,13 @@ export const DELETE = async (
   try {
     const profile = await currentProfile();
     const {searchParams} = new URL(req.url)
-    const serverId = searchParams.get('serverId')
+    const serverId = searchParams?.get('serverId')
     
     if (!profile) {
         return new NextResponse("unAuthorized", { status: 401 });
     }
     
-    if (!params.channelId) {
+    if (!params?.channelId) {
         return new NextResponse("Missing channel Id ", { status: 400 });
     }
     
@@ -36,7 +36,7 @@ export const DELETE = async (
       data:{
         channels:{
             delete:{
-                id: params.channelId,
+                id: params?.channelId,
                 name:{
                     not: "general"
                 }
@@ -59,14 +59,14 @@ export const PATCH = async (
   try {
     const profile = await currentProfile();
     const {searchParams} = new URL(req.url)
-    const serverId = searchParams.get('serverId')
+    const serverId = searchParams?.get('serverId')
     const body = await req.json()
     
     if (!profile) {
         return new NextResponse("unAuthorized", { status: 401 });
     }
     
-    if (!params.channelId) {
+    if (!params?.channelId) {
         return new NextResponse("Missing channel Id ", { status: 400 });
     }
     
@@ -90,7 +90,7 @@ export const PATCH = async (
       channels:{
         update:{
           where:{
-            id: params.channelId,
+            id: params?.channelId,
             NOT:{
               name:"general"
             }

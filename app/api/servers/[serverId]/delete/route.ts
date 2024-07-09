@@ -14,13 +14,13 @@ export const DELETE = async (
       return new NextResponse("unAuthorized", { status: 401 });
     }
 
-    if (!params.serverId) {
+    if (!params?.serverId) {
       return new NextResponse("Missing server Id ", { status: 400 });
     }
 
     const server = await prisma.server.delete({
       where: {
-        id: params.serverId,
+        id: params?.serverId,
         profileId: profile.id,
       },
     });

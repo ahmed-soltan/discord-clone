@@ -11,7 +11,7 @@ export const DELETE = async (
     const profile = await currentProfile();
     const { searchParams } = new URL(req.url);
 
-    const serverId = searchParams.get("serverId");
+    const serverId = searchParams?.get("serverId");
 
     if (!profile) {
       return new NextResponse("unAuthorized", { status: 401 });
@@ -21,7 +21,7 @@ export const DELETE = async (
       return new NextResponse("Missing server Id ", { status: 400 });
     }
 
-    if (!params.memberId) {
+    if (!params?.memberId) {
       return new NextResponse("Missing Member Id ", { status: 400 });
     }
 
@@ -33,7 +33,7 @@ export const DELETE = async (
       data: {
         members: {
           deleteMany: {
-            id: params.memberId,
+            id: params?.memberId,
             profileId: {
               not: profile.id,
             },
@@ -67,7 +67,7 @@ export const PATCH = async (
     const { searchParams } = new URL(req.url);
     const { role } = await req.json();
 
-    const serverId = searchParams.get("serverId");
+    const serverId = searchParams?.get("serverId");
 
     if (!profile) {
       return new NextResponse("unAuthorized", { status: 401 });
@@ -77,7 +77,7 @@ export const PATCH = async (
       return new NextResponse("Missing server Id ", { status: 400 });
     }
 
-    if (!params.memberId) {
+    if (!params?.memberId) {
       return new NextResponse("Missing Member Id ", { status: 400 });
     }
 
@@ -90,7 +90,7 @@ export const PATCH = async (
         members: {
           update: {
             where: {
-              id: params.memberId,
+              id: params?.memberId,
               profileId: {
                 not: profile.id,
               },

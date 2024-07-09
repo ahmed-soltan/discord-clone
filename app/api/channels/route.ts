@@ -8,7 +8,7 @@ export const POST = async (req: Request) => {
     const profile = await currentProfile();
     const body = await req.json();
     const { searchParams } = new URL(req.url);
-    const serverId = searchParams.get("serverId");
+    const serverId = searchParams?.get("serverId");
     if (!profile) {
       return new NextResponse("unAuthorized", { status: 401 });
     }

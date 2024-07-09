@@ -21,14 +21,14 @@ const ChannelPage = async ({
 
   const channel = await prisma.channel.findUnique({
     where: {
-      id: params.channelId,
+      id: params?.channelId,
     },
   });
 
   const member = await prisma.member.findFirst({
     where: {
       profileId: profile.id,
-      serverId: params.serverId,
+      serverId: params?.serverId,
     },
   });
 
@@ -40,7 +40,7 @@ const ChannelPage = async ({
     <div className="bg-white dark:bg-[#313338] flex flex-col h-full">
       <ChatHeader
         name={channel?.name!}
-        serverId={params.serverId}
+        serverId={params?.serverId}
         type={"channel"}
       />
       {channel.type === ChannelType.TEXT && (

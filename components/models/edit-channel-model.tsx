@@ -30,7 +30,7 @@ import {
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import axios from "axios";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useModal } from "@/hooks/use-model-store";
 import { ChannelType } from "@prisma/client";
 import { useEffect } from "react";
@@ -50,7 +50,6 @@ const formSchema = z.object({
 const EditChannelModel = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
-  const params = useParams();
 
   const { channel, server } = data;
 

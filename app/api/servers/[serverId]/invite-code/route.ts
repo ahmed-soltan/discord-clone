@@ -16,7 +16,7 @@ export const PATCH = async (
 
     const server = await prisma.server.update({
       where: {
-        id: params.serverId,
+        id: params?.serverId,
         profileId: profile.id,
       },
       data: {

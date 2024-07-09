@@ -16,13 +16,13 @@ const InviteCodePage = async({ params }: InviteCodePageProps) => {
     return auth().redirectToSignIn();
   }
 
-  if(!params.inviteCode){
+  if(!params?.inviteCode){
     return redirect('/')
   }
 
   const existingServer = await prisma.server.findFirst({
     where:{
-      inviteCode: params.inviteCode,
+      inviteCode: params?.inviteCode,
       members:{
         some:{
           profileId: profile.id
