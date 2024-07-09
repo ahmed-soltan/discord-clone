@@ -45,6 +45,8 @@ const ChatInput = ({ apiUrl, query, type, name }: ChatInputProps) => {
       console.log(error);
     }
   };
+
+  
   return (
     <Form {...form}>
       <form action="" onSubmit={form.handleSubmit(onSubmit)}>
