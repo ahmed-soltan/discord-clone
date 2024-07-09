@@ -38,15 +38,15 @@ const ChatInput = ({ apiUrl, query, type, name }: ChatInputProps) => {
         query,
       });
 
+      form.reset();
       await axios.post(url, data);
       router.refresh();
-      form.reset();
     } catch (error) {
       console.log(error);
     }
   };
 
-  
+
   return (
     <Form {...form}>
       <form action="" onSubmit={form.handleSubmit(onSubmit)}>
