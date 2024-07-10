@@ -56,7 +56,7 @@ const CreateChannelModel = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: data.channelType || ChannelType.TEXT,
+      type: ChannelType.TEXT,
     },
   });
 
@@ -64,16 +64,16 @@ const CreateChannelModel = () => {
 
   useEffect(() => {
     if (data?.channelType) {
-      form.setValue("type", data.channelType);
+      form.setValue("type", data?.channelType);
     } else {
       form.setValue("type", ChannelType.TEXT);
     }
   }, [data, form]);
-
-  if (!isOpen || type !== "createChannel") {
+  
+  const isModalOpen = isOpen && type === "createChannel";
+  if (!isModalOpen) {
     return null;
   }
-
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {

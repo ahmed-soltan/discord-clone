@@ -29,11 +29,11 @@ const ModalProvider = () => {
       <InviteServerModel/>
       <EditServerModel/>
       <ManageMembersModel/>
+      <EditChannelModel/>
       <CreateChannelModel/>
       <LeaveServerModel/>
       <DeleteServerModel/>
       <DeleteChannelModel/>
-      <EditChannelModel/>
       <MessageFileModel/>
       <DeleteMessageModel/>
     </>

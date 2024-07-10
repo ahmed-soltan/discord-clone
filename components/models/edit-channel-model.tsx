@@ -2,7 +2,6 @@
 
 import qs from "query-string";
 import { useForm } from "react-hook-form";
-//@ts-ignore
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
@@ -51,30 +50,32 @@ const EditChannelModel = () => {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const { channel, server } = data;
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: data.channelType || ChannelType.TEXT,
+      type: ChannelType.TEXT,
     },
   });
 
   const isLoading = form.formState.isSubmitting;
 
   useEffect(() => {
+    if (type !== "editChannel" || !data) {
+      return;
+    }
+
+    const { channel } = data;
+
     if (channel) {
       form.setValue("name", channel.name);
       form.setValue("type", channel.type);
     }
-  }, [data, form]);
+  }, [type, data, form]);
 
-  if (!isOpen || type !== "editChannel") {
-    return null;
-  }
+  const onSubmit = async (formData: z.infer<typeof formSchema>) => {
+    const { channel, server } = data;
 
-  const onSubmit = async (data: z.infer<typeof formSchema>) => {
     try {
       const url = qs.stringifyUrl({
         url: `/api/channels/${channel?.id}`,
@@ -82,7 +83,7 @@ const EditChannelModel = () => {
           serverId: server?.id,
         },
       });
-      await axios.patch(url, data);
+      await axios.patch(url, formData);
       router.refresh();
       onClose();
       form.reset();
@@ -95,6 +96,12 @@ const EditChannelModel = () => {
     form.reset();
     onClose();
   };
+
+  if (!isOpen || type !== "editChannel") {
+    return null;
+  }
+
+  const { channel, server } = data;
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
@@ -165,7 +172,7 @@ const EditChannelModel = () => {
             </div>
             <DialogFooter className="px-6 py-4 bg-gray-100">
               <Button type="submit" variant={"primary"} disabled={isLoading}>
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
