@@ -33,8 +33,8 @@ const DeleteMessageModel = () => {
         url: apiUrl || "",
         query: query
       });
-      await axios.delete(url);
       onClose();
+      await axios.delete(url);
       router.refresh();
     } catch (error) {
       console.error(error);
