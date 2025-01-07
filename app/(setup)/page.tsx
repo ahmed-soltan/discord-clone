@@ -2,6 +2,7 @@ import { initialProfile } from "@/lib/initial-profile"
 import {prisma} from '../../lib/prismadb'
 import { redirect } from "next/navigation"
 import InitialMode from "@/components/models/InitialMode"
+
 const page = async() => {
 
   const profile = await initialProfile()
